@@ -8,3 +8,5 @@
 
 | Commando | Betekenis |
 | -------- | --------- |
+| `show ip ospf neighbor` | Toon de OSPF buren |
+| `show ip ospf interface` | Toon de OSPF interfaces |
