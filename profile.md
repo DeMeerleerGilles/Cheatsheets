@@ -4,15 +4,8 @@ Welcome to my GitHub profile! I'm passionate about software development and alwa
 
 ## 🌱 Learning Goals
 
-- Mastering advanced concepts in TypeScript and JavaScript.
-- Exploring new frameworks and libraries like React and Node.js.
-- Improving my skills in cloud computing and DevOps practices.
+- I'm currently learning Linux, Cisco networking,
 
-## 💬 Ask Me About
-
-- Software development best practices.
-- Web development and front-end technologies.
-- Open-source contributions and community involvement.
 
 ## 📫 How to Reach Me
 
@@ -41,7 +34,7 @@ Welcome to my GitHub profile! I'm passionate about software development and alwa
 
 Thank you for visiting my profile! Let's connect and collaborate on exciting projects.
 
-![Profile Views](https://komarev.com/ghpvc/?username=DeMeerleerGilles&color=blue&style=flat-square)
+![Profile Views](https://komarev.com/ghpvc/?username=DeMeerleerGilles&color=brightgreen&style=flat-square)
 <!---
 DeMeerleerGilles/DeMeerleerGilles is a ✨ special ✨ repository because its `README.md` (this file) appears on your GitHub profile.
 You can click the Preview link to take a look at your changes.

@@ -26,3 +26,6 @@ Deobfuscating JavaScript kan met een online tool zoals [deobfuscate.io](https://
 
 Voor encorderingen te decoderen kan je [CyberChef](https://gchq.github.io/CyberChef/) gebruiken.
 
+## Steganografie
+
+Om verborgen informatie te vinden in een afbeelding kan je [StegOnline](https://stegonline.georgeom.net/upload) gebruiken.
