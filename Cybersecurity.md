@@ -1,23 +1,29 @@
 # Cybersecurity cheat sheet
+
 Door: Gilles De Meerleer
+
 ## NMAP
 
 Scan de 1000 meest bekende poorten op een systeem
+
 ```bash
 nmap 192.168.1.22
 ```
 
 Scan enkel poort 22 voor 100 systemen
+
 ```bash
 nmap –p22 192.168.1.1-100
 ```
 
 Scan alle poorten op één systeem
+
 ```bash
 nmap –p– 192.168.1.22
 ```
 
-Services ophalen van 3 poorten op één systeem (banner grabbing) 
+Services ophalen van 3 poorten op één systeem (banner grabbing)
+
 ```bash
 nmap –sV –p22,80,443 192.168.1.22
 ```
@@ -29,6 +35,7 @@ Om een reverse shell te maken kan je de volgende commando's gebruiken:
 ### Met Netcat
 
 Op de aanvallers machine:
+
 ```bash
 nc -lvp 4444
 ```
@@ -36,24 +43,29 @@ nc -lvp 4444
 ## Static file analysis
 
 File hashes
+
 ```bash
 sha256sum file.txt
 ```
 
 Op windows:
+
 ```powershell
 Get-FileHash file.txt -Algorithm SHA256
 ```
 
 Strings in een bestand zoeken:
+
 ```bash
 strings file.txt
 ```
 
 xxd / hexdump:
+
 ```bash
 xxd file.txt
 ```
+
 ```bash
 hexdump -C file.txt | head
 ```
@@ -72,6 +84,28 @@ Gebruik sqlmap om SQL Injection te vinden:
 
 ```bash
 sqlmap -u "http://example.com/login.php" --data="username=admin&password=admin" --method=POST
+```
+
+## John the Ripper
+
+John the Ripper is een tool om wachtwoorden te kraken. Om een zip bestand te kraken kan je het volgende commando gebruiken:
+
+Eerst moet je de hashes extraheren uit het zip bestand:
+
+```bash
+zip2john /path/to/zipfile.zip > /path/to/hash.txt
+```
+
+Daarna kan je John the Ripper gebruiken om de hashes te kraken:
+
+```bash
+john --format=zip --wordlist=/path/to/wordlist.txt /path/to/hash.txt
+```
+
+Deze kan je ook gebruiken om een hash te kraken:
+
+```bash
+john --format=PKZIP --wordlist=rockyou.txt hash.txt
 ```
 
 ## Deobfuscating
