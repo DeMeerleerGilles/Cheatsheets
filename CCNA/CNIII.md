@@ -47,19 +47,26 @@ De wildcard kan je betpalen aan de hand van de subnetten die zijn aangesloten op
 | /32           | 255.255.255.255 | 0.0.0.0                  |
 
 
-| Commando                                 | Betekenis                                                                            |
-| ---------------------------------------- | ------------------------------------------------------------------------------------ |
-| `router ospf 10`                         | Start OSPF proces 10                                                                 |
-| `router-id 6.6.6.6`                      | Stel de router ID in                                                                 |
-| `network 10.0.0.0 0.0.0.3 area 0 `       | Stel de inverse maskers in voor alle aangesloten subnetten                           |
-| `interface GigabitEthernet0/0/0` | Ga naar de interface configuratie modus voor GigabitEthernet0/0/0                    |
-| `ip ospf 10 area 0`                        | Activeer OSPF op de interfaces                             |
-| `passive-interface GigabitEthernet0/0/0` | Maak interface passief (geen routing updates naar netwerken waar ze niet nodig zijn) |
-| `BC-1(config-if)#ip ospf priority 255`                        |De prioriteit van een interface instellen  (in dit voorbeeld op het max)                           |
-| `BC-1(config)#ip route 0.0.0.0 0.0.0.0 Serial0/1/1`                        |Default route naar de ISP cloud                               |
-| `BC-1(config)#router ospf 10 BC-1(config-router)#default-information originate`                           | Automatisch de default route naar alle routers in het netwerk verdelen                                                                 |
-| `P2P-1(config)#router ospf 10 P2P-1(config-router)#auto-cost reference-bandwidth 1000`                           | Automatisch de kost instellen afhankelijk van het type verbinding (Fe of Ge)                                                                 |
-| `ip ospf cost 50`                  | Kost voor een interface instellen                                                       |
-| `ip ospf hello-interval 20`                           | Hello op standaard waarde zetten                                                          |
-| `ip ospf dead-interval 80`                           | Dead op standaard waarde zetten                                                       |
+| Commando                                                                               | Betekenis                                                                            |
+| -------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------ |
+| `router ospf 10`                                                                       | Start OSPF proces 10                                                                 |
+| `router-id 6.6.6.6`                                                                    | Stel de router ID in                                                                 |
+| `network 10.0.0.0 0.0.0.3 area 0 `                                                     | Stel de inverse maskers in voor alle aangesloten subnetten                           |
+| `interface GigabitEthernet0/0/0`                                                       | Ga naar de interface configuratie modus voor GigabitEthernet0/0/0                    |
+| `ip ospf 10 area 0`                                                                    | Activeer OSPF op de interfaces                                                       |
+| `passive-interface GigabitEthernet0/0/0`                                               | Maak interface passief (geen routing updates naar netwerken waar ze niet nodig zijn) |
+| `BC-1(config-if)#ip ospf priority 255`                                                 | De prioriteit van een interface instellen  (in dit voorbeeld op het max)             |
+| `BC-1(config)#ip route 0.0.0.0 0.0.0.0 Serial0/1/1`                                    | Default route naar de ISP cloud                                                      |
+| `BC-1(config)#router ospf 10 BC-1(config-router)#default-information originate`        | Automatisch de default route naar alle routers in het netwerk verdelen               |
+| `P2P-1(config)#router ospf 10 P2P-1(config-router)#auto-cost reference-bandwidth 1000` | Automatisch de kost instellen afhankelijk van het type verbinding (Fe of Ge)         |
+| `ip ospf cost 50`                                                                      | Kost voor een interface instellen                                                    |
+| `ip ospf hello-interval 20`                                                            | Hello op standaard waarde zetten                                                     |
+| `ip ospf dead-interval 80`                                                             | Dead op standaard waarde zetten                                                      |
+
+ACLs configureren:
+| Commando            | Betekenis                                                 |
+| ------------------- | --------------------------------------------------------- |
+| `access-list 100 permit tcp 172.22.34.64 0.0.0.31 host 172.22.34.62 eq ftp` |  Toestaan van FTP verkeer van een subnet naar een host |
+| `R1(config)# access-list 100 permit icmp 172.22.34.64 0.0.0.31 host 172.22.34.62` | Toestaan van ICMP verkeer van een subnet naar een host |
+| `show access-lists` | Toon alle huidige ACLs |
 
