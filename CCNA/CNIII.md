@@ -64,9 +64,68 @@ De wildcard kan je betpalen aan de hand van de subnetten die zijn aangesloten op
 | `ip ospf dead-interval 80`                                                             | Dead op standaard waarde zetten                                                      |
 
 ACLs configureren:
-| Commando            | Betekenis                                                 |
-| ------------------- | --------------------------------------------------------- |
-| `access-list 100 permit tcp 172.22.34.64 0.0.0.31 host 172.22.34.62 eq ftp` |  Toestaan van FTP verkeer van een subnet naar een host |
+| Commando                                                                          | Betekenis                                              |
+| --------------------------------------------------------------------------------- | ------------------------------------------------------ |
+| `access-list 100 permit tcp 172.22.34.64 0.0.0.31 host 172.22.34.62 eq ftp`       | Toestaan van FTP verkeer van een subnet naar een host  |
 | `R1(config)# access-list 100 permit icmp 172.22.34.64 0.0.0.31 host 172.22.34.62` | Toestaan van ICMP verkeer van een subnet naar een host |
-| `show access-lists` | Toon alle huidige ACLs |
+| `show access-lists`                                                               | Toon alle huidige ACLs                                 |
 
+NAT configureren voor IPv4:
+
+ACL configureren zodat vertaling kan gebeuren:
+```bash
+R2(config)#ip access-list standard R2NAT
+R2(config-std-nacl)#permit 192.168.10.0 0.0.0.255
+R2(config-std-nacl)#permit 192.168.20.0 0.0.0.255
+R2(config-std-nacl)#permit 192.168.30.0 0.0.0.255
+```
+
+Een NAT pool configureren:
+```bash
+R2(config)#ip nat pool R2POOL 209.165.202.129 209.165.202.129 netmask 255.255.255.252
+```
+Nat configureren met de pool en ACL:
+```bash
+R2(config)#ip nat inside source list R2NAT pool R2POOL overload
+```
+De statische NAT map configureren voor de local.pka server
+```bash
+R2(config)#ip nat inside source static 192.168.20.254 209.165.202.130
+```
+NAT configureren op de interfaces:
+```bash
+R2(config)#interface FastEthernet0/0
+R2(config-if)#ip nat inside
+R2(config-if)#interface Serial0/0/0
+R2(config-if)#ip nat inside
+R2(config-if)#interface Serial0/0/1
+R2(config-if)#ip nat inside
+R2(config-if)#interface Serial0/1/0
+R2(config-if)#ip nat outside
+```
+Ip nat inside is voor de interne interfaces, ip nat outside voor de externe interfaces.
+
+WAN concepten
+
+## Enkele belangrijke commandos om te onthouden
+| Commando                 | Betekenis               |
+| ------------------------ | ----------------------- |
+| `show ip route`          | Toon de routing tabel   |
+hostname Router
+ip domain-name jouwdomein.be
+crypto key generate rsa general-keys modulus 1024
+username admin password cisco
+line vty 0 4
+transport input ssh
+login local
+
+## Belangrijke show commando's
+| Doel                         | Commando                                            |
+| ---------------------------- | --------------------------------------------------- |
+| NAT-translatie tonen         | `show ip nat translations`                          |
+| ACL-matches tonen            | `show access-lists`                                 |
+| OSPF interfaces en neighbors | `show ip ospf interface`<br>`show ip ospf neighbor` |
+| Routing tabel tonen          | `show ip route`                                     |
+| IP-instellingen              | `show ip interface brief`                           |
+| Gebruikers op VTY            | `show users`                                        |
+| NAT statistieken             | `show ip nat statistics`                            |
