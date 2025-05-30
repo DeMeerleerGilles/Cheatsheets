@@ -63,6 +63,9 @@ De wildcard kan je betpalen aan de hand van de subnetten die zijn aangesloten op
 | `ip ospf hello-interval 20`                                                            | Hello op standaard waarde zetten                                                     |
 | `ip ospf dead-interval 80`                                                             | Dead op standaard waarde zetten                                                      |
 
+## Single area OSPF optimalisatie
+De designated router 
+
 ACLs configureren:
 | Commando                                                                          | Betekenis                                              |
 | --------------------------------------------------------------------------------- | ------------------------------------------------------ |
