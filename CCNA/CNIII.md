@@ -63,15 +63,25 @@ De wildcard kan je betpalen aan de hand van de subnetten die zijn aangesloten op
 | `ip ospf hello-interval 20`                                                            | Hello op standaard waarde zetten                                                     |
 | `ip ospf dead-interval 80`                                                             | Dead op standaard waarde zetten                                                      |
 
-## Single area OSPF optimalisatie
-De designated router 
+
 
 ACLs configureren:
+Er zijn twee soorten ACLs:
+1. **Standard ACLs**: Deze ACLs filteren op bron-IP-adressen en worden meestal gebruikt om verkeer te filteren dat naar een router gaat. Best zo dicht mogelijk bij de bestemming van het verkeer.
+2. **Extended ACLs**: Deze ACLs filteren op bron- en bestemmings-IP-adressen, protocollen (zoals TCP, UDP, ICMP) en poortnummers. Ze worden gebruikt om verkeer te filteren dat door een router gaat. Best zo dicht bij de bron van het verkeer.
+
 | Commando                                                                          | Betekenis                                              |
 | --------------------------------------------------------------------------------- | ------------------------------------------------------ |
 | `access-list 100 permit tcp 172.22.34.64 0.0.0.31 host 172.22.34.62 eq ftp`       | Toestaan van FTP verkeer van een subnet naar een host  |
 | `R1(config)# access-list 100 permit icmp 172.22.34.64 0.0.0.31 host 172.22.34.62` | Toestaan van ICMP verkeer van een subnet naar een host |
+| `R1(config)# access-list 100 deny ip any any`                                      | Blokkeer al het andere verkeer                        |
+| `R1(config)# interface FastEthernet0/0`                                           | Ga naar de interface configuratie modus               |
+| `R1(config-if)#ip access-group 100 in`                                            | Pas de ACL toe op de interface voor inkomend verkeer  |
+| `R1(config-if)#ip access-group 100 out`                                           | Pas de ACL toe op de interface voor uitgaand verkeer  |
 | `show access-lists`                                                               | Toon alle huidige ACLs                                 |
+
+![alt text](img/image.png)
+![alt text](<img/Screenshot 2025-06-02 095732.png>)
 
 NAT configureren voor IPv4:
 
@@ -114,13 +124,13 @@ WAN concepten
 | Commando                 | Betekenis               |
 | ------------------------ | ----------------------- |
 | `show ip route`          | Toon de routing tabel   |
-hostname Router
-ip domain-name jouwdomein.be
-crypto key generate rsa general-keys modulus 1024
-username admin password cisco
-line vty 0 4
-transport input ssh
-login local
+| `hostname Router`                             | Stel de hostnaam van de router in               |
+| `ip domain-name jouwdomein.be`                | Stel de domeinnaam in voor de router            |
+| `crypto key generate rsa general-keys modulus 1024` | Genereer RSA-sleutels voor SSH (1024 bits)      |
+| `username admin password cisco`               | Maak een gebruiker 'admin' met wachtwoord 'cisco'|
+| `line vty 0 4`                                | Ga naar de VTY-lijnen (voor remote toegang)     |
+| `transport input ssh`                         | Sta alleen SSH toe voor remote toegang          |
+| `login local`                                 | Gebruik lokale gebruikersdatabase voor login    |
 
 ## Belangrijke show commando's
 | Doel                         | Commando                                            |

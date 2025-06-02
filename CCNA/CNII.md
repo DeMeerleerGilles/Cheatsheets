@@ -79,9 +79,12 @@
 | Configureer het domeinnaam systeem        | `Switch(config)# ip domain-name example.com`                        |
 | Genereer een RSA-sleutel van 1024 bits    | `Switch(config)# crypto key generate rsa general-keys modulus 1024` |
 | Maak een gebruiker aan met een wachtwoord | `Switch(config)# username admin secret cisco`                       |
+| Het wachtwoord enabelen                   | `Switch(config)# enable secret cisco`                               |
 | Stel de lijn in voor SSH                  | `Switch(config)# line vty 0 15`                                     |
 | Stel het transport in op SSH              | `Switch(config-line)# transport input ssh`                          |
 | Activeer de lijn                          | `Switch(config-line)# login local`                                  |
+| Versie van SSH instellen (optioneel)      | `Switch(config-line)# ip ssh version 2`                             |
+| versleutelen van wachtwoorden inschakelen | `Switch(config)# service password-encryption`                       |
 | Verlaat de configuratie modus             | `Switch(config-line)# end`                                          |
 
 ### VLAN's configureren
@@ -91,6 +94,7 @@
 | Ga naar de configuratie modus                | `Switch(config)# configure terminal`                              |
 | Maak een VLAN aan                            | `Switch(config)# vlan 10`                                         |
 | Geef de VLAN een naam                        | `Switch(config-vlan)# name Faculty`                               |
+| Interface vlan selecteren (optioneel)        | `Switch(config-vlan)# interface vlan 10`                          |
 | VLAN een ip-adres geven (enkel op ML switch) | `Switch(config-vlan)# ip address XXX.XXX.XXX.XXX YYY.YYY.YYY.YYY` |
 | Verlaat de configuratie modus                | `Switch(config-vlan)# end`                                        |
 
@@ -216,10 +220,10 @@ Router(config)# ip route ::/0 2001:db8:acad:2::2
 | Uitleg van het commando                                   | Commando                                                             |
 | --------------------------------------------------------- | -------------------------------------------------------------------- |
 | Ga naar de configuratie modus                             | `Router(config)# configure terminal`                                 |
-| Adressen exclusief maken                                 | `Router(config)# ip dhcp excluded-address 192.168.10.1 192.168.10.9` |
+| Adressen exclusief maken                                  | `Router(config)# ip dhcp excluded-address 192.168.10.1 192.168.10.9` |
 | DHCP inschakelen                                          | `Router(config)# ip dhcp pool LAN1`                                  |
 | Stel het netwerk in voor de DHCP pool                     | `Router(dhcp-config)# network 192.168.10.0 255.255.255.0`            |
-| Stel de standaard gateway in voor de DHCP pool             | `Router(dhcp-config)# default-router 192.168.10.1`                   |
+| Stel de standaard gateway in voor de DHCP pool            | `Router(dhcp-config)# default-router 192.168.10.1`                   |
 | Stel de DNS-server in voor de DHCP pool                   | `Router(dhcp-config)# dns-server 192.168.11.5`                       |
 | Stel de lease time in voor de DHCP pool                   | `Router(dhcp-config)# lease 0 2 0`                                   |
 | Verlaat de configuratie modus                             | `Router(dhcp-config)# end`                                           |
@@ -249,7 +253,7 @@ Voorbeeld van een stateless DHCPv6 configuratie:
 | Ga naar de configuratie modus                             | `Router(config)# configure terminal`                                   |
 | DHCPv6 inschakelen                                        | `Router(config)# ipv6 dhcp pool LAN1`                                  |
 | Stel het netwerk in voor de DHCPv6 pool                   | `Router(config-dhcpv6)# address prefix 2001:db8:acad:1::/64`           |
-| Stel de standaard gateway in voor de DHCPv6 pool           | `Router(config-dhcpv6)# dns-server 2001:db8:acad:1::1`                 |
+| Stel de standaard gateway in voor de DHCPv6 pool          | `Router(config-dhcpv6)# dns-server 2001:db8:acad:1::1`                 |
 | Stel de DNS-server in voor de DHCPv6 pool                 | `Router(config-dhcpv6)# domain-name example.com`                       |
 | Stel de lease time in voor de DHCPv6 pool                 | `Router(config-dhcpv6)# prefix-delegation pool LAN1 lifetime 1800 600` |
 | Verlaat de configuratie modus                             | `Router(config-dhcpv6)# end`                                           |
